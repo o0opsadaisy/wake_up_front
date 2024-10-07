@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "test",
-    "slug": "test",
+    "slug": "wakeup",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -26,7 +26,16 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.wakeup.test"
+      "package": "com.wakeup.test",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_BACKGROUND_LOCATION",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_LOCATION"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -36,7 +45,7 @@
     "plugins": [
       "expo-router",
       [
-      "expo-camera",
+        "expo-camera",
         {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
           "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
@@ -58,8 +67,10 @@
     },
     "extra": {
       "eas": {
-        "projectId": "01caffe2-7317-47f5-a973-08401375d508"
+        "projectId": "d06ddf24-0882-4419-9de8-5ab38ffa6808",
+        "owner": "wakeup1"
       }
-    }
+    },
+    "owner": "wakeup1"
   }
 }
