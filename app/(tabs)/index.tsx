@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
-import Svg, { Path } from 'react-native-svg';
 import { Image, StyleSheet, Platform, View, Button, Text, Modal } from 'react-native';
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-
-export const ExclamationTriangleFillIcon = ({ color = 'currentColor' }) => {
-  return (
-    <Svg width="50" height="50" fill={color} viewBox="0 0 16 16">
-      <Path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-    </Svg>
-  );
-};
+import FontAwesome from '@expo/vector-icons/FontAwesome'; // FontAwesome 아이콘 추가
 
 export default function HomeScreen() {
   const [isSleepModalVisible, setSleepModalVisible] = useState(false);
@@ -45,12 +37,13 @@ export default function HomeScreen() {
         <Button title="사고다발구간에서 졸음 감지" onPress={toggleDangerModal} />
       </ThemedView>
 
+      {/* 졸음 감지 모달 */}
       <Modal visible={isSleepModalVisible} transparent={true} animationType="slide">
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <View style={styles.iconContainer}>
-              {/* 노란색 아이콘 */}
-              <ExclamationTriangleFillIcon color="#FFD700" />
+              {/* FontAwesome 아이콘 */}
+              <FontAwesome name="warning" size={50} color="#FFD700" />
             </View>
             <View style={styles.textContainer}>
               <Text style={styles.modalWarningText1}>WARNING</Text>
@@ -61,12 +54,13 @@ export default function HomeScreen() {
         </View>
       </Modal>
 
+      {/* 사고다발구간에서 졸음 감지 모달 */}
       <Modal visible={isDangerModalVisible} transparent={true} animationType="slide">
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <View style={styles.iconContainer}>
-              {/* 빨간색 아이콘 */}
-              <ExclamationTriangleFillIcon color="red" />
+              {/* FontAwesome 아이콘 */}
+              <FontAwesome name="warning" size={50} color="red" />
             </View>
             <View style={styles.textContainer}>
               <Text style={styles.modalWarningText2}>DANGER</Text>
@@ -172,7 +166,6 @@ const styles = StyleSheet.create({
   },
   modalDetectText: {
     fontSize: 20,
-    
     color: '#000000',
   },
   modalButton: {
