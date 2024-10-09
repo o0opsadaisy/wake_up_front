@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
+import Svg, { Path } from 'react-native-svg';
 import { Image, StyleSheet, Platform, View, Button, Text, Modal } from 'react-native';
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
+export const ExclamationTriangleFillIcon = ({ color = 'currentColor' }) => {
+  return (
+    <Svg width="50" height="50" fill={color} viewBox="0 0 16 16">
+      <Path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+    </Svg>
+  );
+};
+
 export default function HomeScreen() {
-  // 모달 상태 관리
   const [isSleepModalVisible, setSleepModalVisible] = useState(false);
   const [isDangerModalVisible, setDangerModalVisible] = useState(false);
 
-  // 졸음 감지 모달 열기/닫기
   const toggleSleepModal = () => {
     setSleepModalVisible(!isSleepModalVisible);
   };
 
-  // 사고다발구간에서 졸음 감지 모달 열기/닫기
   const toggleDangerModal = () => {
     setDangerModalVisible(!isDangerModalVisible);
   };
@@ -34,30 +40,38 @@ export default function HomeScreen() {
         <HelloWave />
       </ThemedView>
 
-      {/* 팝업을 제어할 버튼들 */}
       <ThemedView style={styles.buttonContainer}>
-        {/* 졸음 감지 버튼 */}
         <Button title="졸음 감지" onPress={toggleSleepModal} />
-        
-        {/* 사고다발구간에서 졸음 감지 버튼 */}
         <Button title="사고다발구간에서 졸음 감지" onPress={toggleDangerModal} />
       </ThemedView>
 
-      {/* 졸음 감지 모달 */}
       <Modal visible={isSleepModalVisible} transparent={true} animationType="slide">
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text>졸음이 감지되었습니다!</Text>
+            <View style={styles.iconContainer}>
+              {/* 노란색 아이콘 */}
+              <ExclamationTriangleFillIcon color="#FFD700" />
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.modalWarningText1}>WARNING</Text>
+              <Text style={styles.modalDetectText}>졸음 감지</Text>
+            </View>
             <Button title="닫기" onPress={toggleSleepModal} />
           </View>
         </View>
       </Modal>
 
-      {/* 사고다발구간에서 졸음 감지 모달 */}
       <Modal visible={isDangerModalVisible} transparent={true} animationType="slide">
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text>사고다발구간에서 졸음이 감지되었습니다!</Text>
+            <View style={styles.iconContainer}>
+              {/* 빨간색 아이콘 */}
+              <ExclamationTriangleFillIcon color="red" />
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.modalWarningText2}>DANGER</Text>
+              <Text style={styles.modalDetectText}>사고다발구간에서 졸음 감지</Text>
+            </View>
             <Button title="닫기" onPress={toggleDangerModal} />
           </View>
         </View>
@@ -130,5 +144,47 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     alignItems: 'center',
+    width: 400,
+    height: 200, // 높이를 충분히 설정
+    justifyContent: 'center',
+  },
+  iconContainer: {
+    position: 'absolute', // 아이콘을 텍스트와 별도로 배치
+    left: 30,
+    top: '60%', // 상하 중앙 정렬
+    transform: [{ translateY: -20 }], // 상하 중앙 정렬을 정확히 맞추기 위해 변환
+  },
+  textContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  modalWarningText1: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#FFD700',
+    marginBottom: 10,
+  },
+  modalWarningText2: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: 'red',
+    marginBottom: 10,
+  },
+  modalDetectText: {
+    fontSize: 20,
+    
+    color: '#000000',
+  },
+  modalButton: {
+    backgroundColor: '#FF6347',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  modalButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
